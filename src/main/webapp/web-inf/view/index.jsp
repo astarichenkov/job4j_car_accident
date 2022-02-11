@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -16,6 +16,8 @@
 <body>
 <div class="container pt-3">
 
+    <a href="<c:url value='/create'/>">Добавить инцидент</a>
+
     <div class="card">
         <div class="card-body">
             <table class="table table-hover" id="table">
@@ -32,7 +34,11 @@
                 <c:forEach var="accident" items="${accidents}">
                     <tr>
                         <th scope="row"><c:out value="${accident.id}"/></th>
-                        <td><c:out value="${accident.name}"/></td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/update.jsp?id=${accident.id}">
+                                <c:out value="${accident.name}"/>
+                            </a>
+                        </td>
                         <td><c:out value="${accident.text}"/></td>
                         <td><c:out value="${accident.address}"/></td>
                     </tr>

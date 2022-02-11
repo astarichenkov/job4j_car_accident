@@ -15,22 +15,23 @@ public class AccidentService {
     }
 
 
-    public List<Accident> getSomeAccidents() {
-        List<Accident> accidents = accidentMem.findAll();
+    public void getSomeAccidents() {
         Accident accident = Accident.builder()
-                .id(1)
                 .address("Кузбасская, 1е")
                 .name("Превышение скорости")
                 .text("КоАП РФ Статья 12.9.2. Превышение установленной скорости движения транспортного средства на величину более 20, но не более 40 километров в час.")
                 .build();
-        accidents.add(accident);
+        accidentMem.create(accident);
         accident = Accident.builder()
-                .id(2)
                 .address("Ларина, 13")
                 .name("Превышение скорости")
                 .text("КоАП РФ Статья 12.9.3. Превышение установленной скорости движения транспортного средства на величину более 40, но не более 60 километров в час.")
                 .build();
-        accidents.add(accident);
-        return  accidents;
+        accidentMem.create(accident);
+    }
+
+    public List<Accident> findAll() {
+        getSomeAccidents();
+        return accidentMem.findAll();
     }
 }

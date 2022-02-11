@@ -10,9 +10,12 @@ import java.util.*;
 @NoArgsConstructor
 public class AccidentMem {
     private final Map<Integer, Accident> accidents = new HashMap<>();
+    private int id;
 
-    public void add(Accident accident) {
-        accidents.put(accident.getId(), accident);
+    public void create(Accident accident) {
+        accident.setId(id);
+        accidents.put(id, accident);
+        id++;
     }
 
     public Accident findById(int id) {
