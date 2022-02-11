@@ -21,6 +21,13 @@
             <input type="text" class="form-control" name="name" id="name">
         </div>
         <div class="mb-3">
+            <select class="form-select" name="type.id">
+                <c:forEach var="type" items="${types}" >
+                    <option value="${type.id}">${type.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="address" class="form-label">Адрес</label>
             <input type="text" class="form-control" name="address" id="address">
         </div>

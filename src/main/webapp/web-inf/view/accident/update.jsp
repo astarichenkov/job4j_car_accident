@@ -21,6 +21,19 @@
       <input type="text" class="form-control" name="name" id="name" value="<c:out value="${accident.name}"/>">
     </div>
     <div class="mb-3">
+      <label for="type.id" class="form-label">Тип</label>
+      <select class="form-select" name="type.id" id="type.id">
+        <c:forEach var="type" items="${types}" >
+          <c:if test="${accident.type.id == type.id}">
+            <option selected value="${type.id}">${type.name}</option>
+          </c:if>
+          <c:if test="${accident.type.id != type.id}">
+            <option value="${type.id}">${type.name}</option>
+          </c:if>
+        </c:forEach>
+      </select>
+    </div>
+    <div class="mb-3">
       <label for="address" class="form-label">Адрес</label>
       <input type="text" class="form-control" name="address" id="address" value="<c:out value="${accident.address}"/>">
     </div>
