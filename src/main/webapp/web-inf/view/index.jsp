@@ -35,7 +35,7 @@
                     <tr>
                         <th scope="row"><c:out value="${accident.id}"/></th>
                         <td>
-                            <a href="${pageContext.request.contextPath}/update.jsp?id=${accident.id}">
+                            <a href="${pageContext.request.contextPath}/update?id=${accident.id}">
                                 <c:out value="${accident.name}"/>
                             </a>
                         </td>

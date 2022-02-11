@@ -13,9 +13,13 @@ public class AccidentMem {
     private int id;
 
     public void create(Accident accident) {
-        accident.setId(id);
-        accidents.put(id, accident);
-        id++;
+        if (accident.getId() != 0) {
+            accidents.put(accident.getId(), accident);
+        } else {
+            accident.setId(id);
+            accidents.put(id, accident);
+            id++;
+        }
     }
 
     public Accident findById(int id) {

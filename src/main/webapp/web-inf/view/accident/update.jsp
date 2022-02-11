@@ -15,34 +15,21 @@
 
 <body>
 <div class="container pt-3">
-
-  <a href="<c:url value='/create'/>">Добавить инцидент</a>
-
-  <div class="card">
-    <div class="card-body">
-      <table class="table table-hover" id="table">
-        <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Имя</th>
-          <th scope="col">Описание</th>
-          <th scope="col">Адрес</th>
-        </tr>
-        </thead>
-        <tbody>
-        <jsp:useBean id="accidents" scope="request" type="java.util.List"/>
-        <c:forEach var="accident" items="${accidents}">
-          <tr>
-            <th scope="row"><c:out value="${accident.id}"/></th>
-            <td><c:out value="${accident.name}"/></td>
-            <td><c:out value="${accident.text}"/></td>
-            <td><c:out value="${accident.address}"/></td>
-          </tr>
-        </c:forEach>
-        </tbody>
-      </table>
+  <form action="<c:url value='/save?id=${accident.id}'/>" method='POST'>
+    <div class="mb-3">
+      <label for="name" class="form-label">Имя</label>
+      <input type="text" class="form-control" name="name" id="name" value="<c:out value="${accident.name}"/>">
     </div>
-  </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Адрес</label>
+      <input type="text" class="form-control" name="address" id="address" value="<c:out value="${accident.address}"/>">
+    </div>
+    <div class="mb-3">
+      <label for="text" class="form-label">Описание</label>
+      <textarea class="form-control" name="text" id="text" rows="3"><c:out value="${accident.text}"/></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+  </form>
 </div>
 </body>
 </html>
