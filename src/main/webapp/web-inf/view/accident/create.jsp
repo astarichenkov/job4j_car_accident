@@ -21,9 +21,18 @@
             <input type="text" class="form-control" name="name" id="name">
         </div>
         <div class="mb-3">
-            <select class="form-select" name="type.id">
+            <label for="type.id" class="form-label">Тип</label>
+            <select class="form-select" name="type.id" id="type.id">
                 <c:forEach var="type" items="${types}" >
                     <option value="${type.id}">${type.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="ruleIds" class="form-label">Статьи</label>
+            <select class="form-select" name="ruleIds" id="ruleIds" multiple>
+                <c:forEach var="rule" items="${rules}" >
+                    <option value="${rule.id}">${rule.name}</option>
                 </c:forEach>
             </select>
         </div>

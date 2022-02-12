@@ -3,6 +3,7 @@ package ru.job4j.accident.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
+import ru.job4j.accident.model.Rule;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,6 +15,11 @@ public class AccidentMem {
             1, AccidentType.of(1, "Две машины"),
             2, AccidentType.of(2, "Машина и человек"),
             3, AccidentType.of(3, "Машина и велосипед")
+    );
+    private final Map<Integer, Rule> ruleMap = Map.of(
+            1, Rule.of(1, "Статья. 1"),
+            2, Rule.of(2, "Статья. 2"),
+            3, Rule.of(3, "Статья. 3")
     );
     private final AtomicInteger id = new AtomicInteger(3);
 
@@ -60,5 +66,9 @@ public class AccidentMem {
 
     public List<AccidentType> getAccidentTypes() {
         return new ArrayList<>(accidentTypeMap.values());
+    }
+
+    public Map<Integer, Rule> getRules() {
+        return ruleMap;
     }
 }
