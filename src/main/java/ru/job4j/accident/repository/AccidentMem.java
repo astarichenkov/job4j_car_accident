@@ -68,7 +68,7 @@ public class AccidentMem {
         return new ArrayList<>(accidentTypeMap.values());
     }
 
-    public Map<Integer, Rule> getRules() {
-        return ruleMap;
+    public List<Rule> getAllRules() {
+        return new ArrayList<>(ruleMap.values());
     }
 }

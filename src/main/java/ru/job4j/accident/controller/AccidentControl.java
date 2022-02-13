@@ -10,6 +10,7 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.service.AccidentService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -17,22 +18,25 @@ import java.util.*;
 @Controller
 public class AccidentControl {
     private final AccidentMem accidents;
+    private final AccidentService accidentService;
 
-    public AccidentControl(AccidentMem accidents) {
+
+    public AccidentControl(AccidentMem accidents, AccidentService accidentService) {
         this.accidents = accidents;
+        this.accidentService = accidentService;
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("types", getTypes());
-        model.addAttribute("rules", getRules().values());
+        model.addAttribute("rules", getRules());
         return "accident/create";
     }
 
     @GetMapping("/update")
     public String update(@RequestParam("id") int id, Model model) {
         model.addAttribute("types", getTypes());
-        model.addAttribute("rules", getRules().values());
+        model.addAttribute("rules", getRules());
         model.addAttribute("accident", accidents.findById(id));
         return "accident/update";
     }
@@ -40,15 +44,7 @@ public class AccidentControl {
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("ruleIds");
-        Map<Integer, Rule> ruleMap = getRules();
-        Set<Rule> accidentRules = new HashSet<>();
-        if (ids != null) {
-            for (String id : ids) {
-                Rule rule = ruleMap.get(Integer.parseInt(id));
-                accidentRules.add(rule);
-            }
-        }
-        accident.setRules(accidentRules);
+        accident.setRules(accidentService.getRules(ids));
         accidents.create(accident);
         return "redirect:/";
     }
@@ -57,7 +53,7 @@ public class AccidentControl {
         return accidents.getAccidentTypes();
     }
 
-    private Map<Integer, Rule> getRules() {
-        return accidents.getRules();
+    private List<Rule> getRules() {
+        return accidents.getAllRules();
     }
 }
