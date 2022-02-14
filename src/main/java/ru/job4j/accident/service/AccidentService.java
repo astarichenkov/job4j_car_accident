@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentJdbcTemplate;
+import ru.job4j.accident.repository.AccidentHibernate;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,21 +12,21 @@ import java.util.Set;
 
 @Service
 public class AccidentService {
-    private final AccidentJdbcTemplate jdbcTemplate;
+    private final AccidentHibernate accidentHibernate;
 
-    public AccidentService(AccidentJdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public AccidentService(AccidentHibernate accidentHibernate) {
+        this.accidentHibernate = accidentHibernate;
     }
 
     public List<Accident> findAll() {
-        return jdbcTemplate.findAll();
+        return accidentHibernate.findAll();
     }
 
     public Set<Rule> getRules(String[] ids) {
         Set<Rule> rsl = new HashSet<>();
         if (ids != null) {
             List<String> idList = List.of(ids);
-            for (Rule rule : jdbcTemplate.getAllRules()) {
+            for (Rule rule : getAllRules()) {
                 if (idList.contains(String.valueOf(rule.getId()))) {
                     rsl.add(rule);
                 }
@@ -36,19 +36,19 @@ public class AccidentService {
     }
 
     public List<Rule> getAllRules() {
-        return jdbcTemplate.getAllRules();
+        return accidentHibernate.getAllRules();
     }
 
     public List<AccidentType> getAccidentTypes() {
-        return jdbcTemplate.getAccidentTypes();
+        return accidentHibernate.getAccidentTypes();
     }
 
     public Accident findById(int id) {
-        return jdbcTemplate.findById(id);
+        return accidentHibernate.findById(id);
     }
 
     public Accident create(Accident accident) {
-        return jdbcTemplate.create(accident);
+        return accidentHibernate.create(accident);
     }
 
 }
