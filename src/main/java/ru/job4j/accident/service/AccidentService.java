@@ -2,6 +2,7 @@ package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.AccidentJdbcTemplate;
 
@@ -33,4 +34,21 @@ public class AccidentService {
         }
         return rsl;
     }
+
+    public List<Rule> getAllRules() {
+        return jdbcTemplate.getAllRules();
+    }
+
+    public List<AccidentType> getAccidentTypes() {
+        return jdbcTemplate.getAccidentTypes();
+    }
+
+    public Accident findById(int id) {
+        return jdbcTemplate.findById(id);
+    }
+
+    public Accident create(Accident accident) {
+        return jdbcTemplate.create(accident);
+    }
+
 }

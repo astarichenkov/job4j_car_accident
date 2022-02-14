@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentJdbcTemplate;
 import ru.job4j.accident.service.AccidentService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +16,9 @@ import java.util.*;
 
 @Controller
 public class AccidentControl {
-    private final AccidentJdbcTemplate accidents;
     private final AccidentService accidentService;
 
-
-    public AccidentControl(AccidentJdbcTemplate accidents, AccidentService accidentService) {
-        this.accidents = accidents;
+    public AccidentControl(AccidentService accidentService) {
         this.accidentService = accidentService;
     }
 
@@ -37,7 +33,7 @@ public class AccidentControl {
     public String update(@RequestParam("id") int id, Model model) {
         model.addAttribute("types", getTypes());
         model.addAttribute("rules", getRules());
-        model.addAttribute("accident", accidents.findById(id));
+        model.addAttribute("accident", accidentService.findById(id));
         return "accident/update";
     }
 
@@ -45,15 +41,15 @@ public class AccidentControl {
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("ruleIds");
         accident.setRules(accidentService.getRules(ids));
-        accidents.create(accident);
+        accidentService.create(accident);
         return "redirect:/";
     }
 
     private List<AccidentType> getTypes() {
-        return accidents.getAccidentTypes();
+        return accidentService.getAccidentTypes();
     }
 
     private List<Rule> getRules() {
-        return accidents.getAllRules();
+        return accidentService.getAllRules();
     }
 }
