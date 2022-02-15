@@ -19,7 +19,12 @@ public class AccidentHibernate {
 
     public Accident create(Accident accident) {
         try (Session session = sf.openSession()) {
+            session.beginTransaction();
             session.save(accident);
+            for (Rule rule : accident.getRules()) {
+                session.save(rule);
+            }
+            session.getTransaction().commit();
             return accident;
         }
     }
