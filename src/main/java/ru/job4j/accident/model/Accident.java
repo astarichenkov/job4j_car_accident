@@ -10,14 +10,14 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
 @Entity
 @Table(name = "accident")
 public class Accident {
     @Id
+    @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
     private String text;
@@ -33,4 +33,8 @@ public class Accident {
             inverseJoinColumns = { @JoinColumn(name = "rule_id") }
     )
     private Set<Rule> rules = new HashSet<>();
+
+    public void addRule(Rule rule) {
+            rules.add(rule);
+    }
 }

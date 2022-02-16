@@ -1,3 +1,5 @@
+CREATE DATABASE auto_crash;
+
 CREATE TABLE accident
 (
     id      SERIAL PRIMARY KEY,
@@ -6,10 +8,6 @@ CREATE TABLE accident
     address VARCHAR(2000),
     type_id INT REFERENCES type (id)
 );
-
-ALTER TABLE accident ADD COLUMN text TEXT;
-ALTER TABLE accident ADD COLUMN address VARCHAR(2000);
-ALTER TABLE accident ADD COLUMN type_id INT REFERENCES type (id);
 
 CREATE TABLE type
 (

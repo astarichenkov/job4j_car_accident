@@ -44,7 +44,7 @@ public class AccidentMem {
         accidents.put(2, accident);
     }
 
-    public void create(Accident accident) {
+    public void save(Accident accident) {
         int typeId = accident.getType().getId();
         accident.setType(accidentTypeMap.get(typeId));
         if (accident.getId() != 0) {

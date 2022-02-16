@@ -21,7 +21,7 @@ public class AccidentJdbcTemplate {
         this.jdbc = jdbc;
     }
 
-    public Accident create(Accident accident) {
+    public Accident save(Accident accident) {
         String insertMessageSql
                 = "insert into accident (name, text, address, type_id) values (?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();

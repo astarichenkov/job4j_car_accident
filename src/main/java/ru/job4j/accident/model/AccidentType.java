@@ -4,21 +4,18 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Data
 @NoArgsConstructor
+@RequiredArgsConstructor(staticName = "of")
+@Getter
+@Setter
 @Entity
 @Table(name = "type")
 public class AccidentType {
     @Id
+    @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
+    @NonNull
     private String name;
-
-    public static AccidentType of(int id, String name) {
-        AccidentType type = new AccidentType();
-        type.id = id;
-        type.name = name;
-        return type;
-    }
 }

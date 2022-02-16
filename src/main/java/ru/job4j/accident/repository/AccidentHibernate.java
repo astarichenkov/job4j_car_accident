@@ -17,13 +17,16 @@ public class AccidentHibernate {
         this.sf = sf;
     }
 
-    public Accident create(Accident accident) {
+    public Accident save(Accident accident, String[] ids) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            session.save(accident);
-            for (Rule rule : accident.getRules()) {
-                session.save(rule);
+
+            for (String id : ids) {
+                Rule rule = session.find(Rule.class, Integer.parseInt(id));
+                accident.addRule(rule);
             }
+            session.saveOrUpdate(accident);
+
             session.getTransaction().commit();
             return accident;
         }
