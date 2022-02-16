@@ -15,9 +15,20 @@
 
 <body>
 <div class="container pt-3">
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/logout">Выйти</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
 
-    <a href="<c:url value='/create'/>">Добавить инцидент</a>
-
+<div class="container pt-3">
     <div class="card">
         <div class="card-body">
             <table class="table table-hover" id="table">
