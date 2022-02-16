@@ -4,36 +4,58 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentHibernate;
+import ru.job4j.accident.repository.AccidentRepository;
+import ru.job4j.accident.repository.AccidentTypeRepository;
+import ru.job4j.accident.repository.RuleRepository;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AccidentService {
-    private final AccidentHibernate accidentHibernate;
+    private final AccidentRepository accidentRepository;
+    private final AccidentTypeRepository accidentTypeRepository;
+    private final RuleRepository ruleRepository;
 
-    public AccidentService(AccidentHibernate accidentHibernate) {
-        this.accidentHibernate = accidentHibernate;
+    public AccidentService(AccidentRepository accidentRepository, AccidentTypeRepository accidentTypeRepository, RuleRepository ruleRepository) {
+        this.accidentRepository = accidentRepository;
+        this.accidentTypeRepository = accidentTypeRepository;
+        this.ruleRepository = ruleRepository;
     }
 
     public List<Accident> findAll() {
-        return accidentHibernate.findAll();
+        List<Accident> res = new ArrayList<>();
+        accidentRepository.findAll().forEach(res::add);
+        return res;
     }
 
     public List<Rule> getAllRules() {
-        return accidentHibernate.getAllRules();
+        List<Rule> res = new ArrayList<>();
+        ruleRepository.findAll().forEach(res::add);
+        return res;
     }
 
     public List<AccidentType> getAccidentTypes() {
-        return accidentHibernate.getAccidentTypes();
+        List<AccidentType> res = new ArrayList<>();
+        accidentTypeRepository.findAll().forEach(res::add);
+        return res;
     }
 
     public Accident findById(int id) {
-        return accidentHibernate.findById(id);
+        return accidentRepository.findById(id).get();
     }
 
     public Accident save(Accident accident, String[] ids) {
-        return accidentHibernate.save(accident, ids);
+        if (ids != null) {
+            for (String id : ids) {
+                Rule rule = new Rule();
+                rule.setId(Integer.parseInt(id));
+                accident.addRule(rule);
+            }
+        }
+        return accidentRepository.save(accident);
     }
 
 }
