@@ -21,6 +21,9 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>">Главная</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/create">Добавить инцидент</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/logout">Выйти</a>
             </li>
         </ul>
