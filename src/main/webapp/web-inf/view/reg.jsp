@@ -18,7 +18,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <title>Работа мечты</title>
+    <title>Регистрация</title>
 </head>
 <body>
 <div class="container pt-3">
@@ -40,6 +40,11 @@
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Регистрация</button>
                 </form>
+                <c:if test="${not empty errorMessage}">
+                    <div style="color:red; margin: 30px 0;">
+                            ${errorMessage}
+                    </div>
+                </c:if>
                 <a class="card-link" href="<%=request.getContextPath()%>/login">Войти</a>
             </div>
         </div>
